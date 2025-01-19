@@ -16,8 +16,6 @@ Below are some screenshots from the app:
 <img src="./Screenshots/Screenshot7.png" alt="Screenshot_20250119_232604" width="350"/>
 
 
-(*Replace the placeholder URLs with actual image URLs in your repository or local directory*)
-
 ## Technologies Used
 
 - **Programming Language**: Dart
@@ -61,10 +59,10 @@ Below are some screenshots from the app:
 
 4. **Run the Project**
 
-  To run the project, use the following command:
-  
-  ```bash
-  flutter run
+    To run the project, use the following command:
+   
+     ```bash
+    flutter run
 
 Ensure you have a connected device or an emulator running to view the app.
 
@@ -87,4 +85,3 @@ Ensure you have a connected device or an emulator running to view the app.
 - **Timer**: A countdown timer to keep track of the quiz duration.
 - **Score Tracking**: Calculates and displays your score based on your answers.
 - **Lottie Animations**: Enhances the user experience with smooth and engaging animations.
-

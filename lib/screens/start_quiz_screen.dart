@@ -93,6 +93,7 @@ class StartQuizScreen extends StatelessWidget {
               ElevatedButton(
                   onPressed: () {
                     Get.to(()=> QuizPage());
+                    // Get.to(()=> QuizScreen());
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,

@@ -1,149 +1,157 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:testmime/constants/size_config.dart';
 import 'package:testmime/controllers/questions_controller.dart';
-import 'package:testmime/controllers/quiz_controller.dart';
-import 'package:testmime/widgets/quiz_screen_app_bar.dart';
-import '../models/questions_model.dart';
+import 'package:testmime/screens/score_screen.dart';
+import 'package:testmime/widgets/questions_card.dart';
 
 class QuizPage extends StatelessWidget {
   QuizPage({super.key});
-
-  final QuestionsController questionController = Get.put(QuestionsController());
+  
+  QuizQuestionsController controller = Get.put(QuizQuestionsController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: QuizPageAppBar(
-        title: "title",
-        questionCount: questionController.questions.length,
-        initialTime: 10 * 60,
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: ()=> showExitConfirmationDialog(context),
+            icon: Icon(Icons.arrow_back_ios_new_rounded, size: 24, color: Colors.grey,)
+        ),
+        title: Obx(()=>Text(
+          "Question : ${controller.currentQuestionIndex.value}/ ${controller.questions.length}",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 24),
+        )),
+        actions: [
+          Obx(() {
+            int minutes = controller.timeRemaining.value ~/ 60;
+            int seconds = controller.timeRemaining.value % 60;
+            return Text('$minutes:${seconds.toString().padLeft(2, '0')}', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),);
+          }),
+          SizedBox(width: 12,)
+        ],
+        centerTitle: true,
+        elevation: 5,
+        bottomOpacity: 50,
+        backgroundColor: Color(0xffd263ff),
       ),
       body: Container(
-        color: Colors.red,
-        padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.screenWidth * 0.03,
-          vertical: SizeConfig.screenHeight * 0.03,
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            padding: EdgeInsets.all(8),
-            width: double.maxFinite,
-            height: double.maxFinite,
-            color: Colors.white,
-            child: Obx(
-                  () => Column(
-                children: [
-                  // Question display with PageView
-                  Expanded(
-                    child: PageView.builder(
-                      controller: questionController.pageController,
-                      itemCount: questionController.questions.length,
-                      onPageChanged: (index) {
-                        questionController.currentQuestionIndex.value = index;
-                      },
-                      itemBuilder: (context, pageIndex) {
-                        final question = questionController.questions[pageIndex];
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Question ${pageIndex + 1}",
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            Text(
-                              question.description,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xff707070),
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            Expanded(
-                              child: ListView.builder(
-                                itemCount: question.options.length,
-                                itemBuilder: (context, optionIndex) {
-                                  final option = question.options[optionIndex];
-                                  final isSelected = questionController
-                                      .selectedOptions[pageIndex] ==
-                                      optionIndex;
+        color: Color(0xffecb8f8),
+        alignment: Alignment.center,
+        child: Column(
+          children: [
+            Expanded(
+                child: Container(
+                  padding: EdgeInsets.all(12),
+                  child: PageView.builder(
+                    controller: controller.pageController,
+                    onPageChanged: (index){
+                      controller.currentQuestionIndex.value = index+1;
+                    },
+                    itemCount: controller.questions.length,
+                    itemBuilder: (context, index){
+                      final question = controller.questions[index];
+                      return QuestionsCard(question: question);
 
-                                  return GestureDetector(
-                                    onTap: () {
-                                      questionController.selectOption(
-                                          pageIndex, optionIndex);
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.all(
-                                          SizeConfig.screenWidth * 0.02),
-                                      margin: EdgeInsets.all(
-                                          SizeConfig.screenWidth * 0.01),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: isSelected
-                                              ? (option.isCorrect
-                                              ? Colors.green
-                                              : Colors.red)
-                                              : const Color(0xff7e7d7d),
-                                          width: 2,
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Text("${optionIndex + 1}. "),
-                                          Text(option.description),
-                                          Spacer(),
-                                          Radio<int>(
-                                            value: optionIndex,
-                                            groupValue: questionController
-                                                .selectedOptions[pageIndex],
-                                            onChanged: (value) {
-                                              questionController.selectOption(
-                                                  pageIndex, value!);
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        );
-                      },
+                  }),
+                )
+            ),
+            SizedBox(height: 12,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    if(controller.currentQuestionIndex.value == controller.questions.length){
+                      controller.cancelTimer();
+                      controller.calculateScore();
+                      Get.off(()=>ScoreScreen());
+                    }else{
+                      controller.pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.bounceInOut);
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white, backgroundColor: Color(0xffd263ff), // Text color
+                    elevation: 5, // Elevation
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12), // Border radius
                     ),
                   ),
-                  // Next Button
-                  ElevatedButton(
-                    onPressed: () {
-                      if (questionController.currentQuestionIndex.value <
-                          questionController.questions.length - 1) {
-                        questionController.pageController.nextPage(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeInOut,
-                        );
-                      } else {
-                        Get.snackbar("Quiz", "You have completed the quiz!");
-                      }
-                    },
-                    child: const Text("Next"),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  child: Obx((){
+                    return controller.currentQuestionIndex.value == controller.questions.length
+                        ?Text("Get Your Score")
+                        :Text('Next Question');
+                  }),
+                )
+
+              ],
+
+            )
+          ],
         ),
-      ),
+      )
     );
   }
+}
+
+
+
+void showExitConfirmationDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(
+          'Exit Quiz',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.blueAccent,
+          ),
+        ),
+        content: Text(
+          'Are you sure you want to exit the quiz?',
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.black54,
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.white, backgroundColor: Colors.red,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
+            onPressed: () {
+              // Handle Yes action
+              Navigator.of(context).pop(true);
+            },
+            child: Text(
+              'Yes',
+              style: TextStyle(fontSize: 14),
+            ),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.white, backgroundColor: Colors.green,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
+            onPressed: () {
+              // Handle No action
+              Navigator.of(context).pop(false);
+            },
+            child: Text(
+              'No',
+              style: TextStyle(fontSize: 14),
+            ),
+          ),
+        ],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+      );
+    },
+  );
 }

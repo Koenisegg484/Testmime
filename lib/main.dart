@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:testmime/constants/size_config.dart';
+import 'package:testmime/screens/main_screen.dart';
 import 'package:testmime/screens/welcome_screen.dart';
+import 'package:testmime/services/hive_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       title: "TestMime",
-      home: WelcomeScreen(),
+      home: SavedName.getUsername()!= null ? WelcomeScreen() : MainScreen(),
     );
   }
 }

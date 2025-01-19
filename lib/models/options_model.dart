@@ -19,4 +19,9 @@ class Option {
       isCorrect: json['is_correct'],
     );
   }
+
+  @override
+  String toString() {
+    return "id: $id, description: $description, questionId: $questionId, isCorrect: $isCorrect";
+  }
 }

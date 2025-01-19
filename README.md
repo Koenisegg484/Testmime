@@ -5,10 +5,16 @@ Testmime is a quiz application that allows users to take quizzes, track scores, 
 ## Screenshots
 
 Below are some screenshots from the app:
+### Screenshots
 
-![Screenshot 1](https://via.placeholder.com/350)
-![Screenshot 2](https://via.placeholder.com/350)
-![Screenshot 3](https://via.placeholder.com/350)
+![Screenshot_20250119_232257](./Screenshot1.png){: width="350px"}
+![Screenshot_20250119_232339](./Screenshot2.png){: width="350px"}
+![Screenshot_20250119_232414](./Screenshot3.png){: width="350px"}
+![Screenshot_20250119_232428](./Screenshot4.png){: width="350px"}
+![Screenshot_20250119_232449](./Screenshot5.png){: width="350px"}
+![Screenshot_20250119_232520](./Screenshot6.png){: width="350px"}
+![Screenshot_20250119_232604](./Screenshot7.png){: width="350px"}
+
 
 (*Replace the placeholder URLs with actual image URLs in your repository or local directory*)
 

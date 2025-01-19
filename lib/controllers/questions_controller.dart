@@ -34,7 +34,7 @@ class QuizQuestionsController extends GetxController {
     answeredQuestions = <int, int>{}.obs;
     score.value = 0;
     questions = Get.put(QuizController()).getQuestions();
-    pageController = PageController();
+    pageController = PageController(viewportFraction: 0.98);
     currentQuestionIndex = 1.obs;
     startTimer(Get.put(QuizController()).getDuration());
     super.onInit();

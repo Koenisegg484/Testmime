@@ -10,20 +10,26 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox<String>('userBox');
-  runApp(MyApp());
+
+  // Check if a username exists in local storage
+  String? username = SavedName.getUsername();
+
+  runApp(MyApp(initialScreen: username != null ? MainScreen() : WelcomeScreen()));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final Widget initialScreen;
+
+  const MyApp({super.key, required this.initialScreen});
 
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-
       title: "TestMime",
-      home: SavedName.getUsername()!= null ? WelcomeScreen() : MainScreen(),
+      home: initialScreen,
     );
   }
 }
+

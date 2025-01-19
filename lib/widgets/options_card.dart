@@ -9,7 +9,7 @@ class OptionsCard extends StatelessWidget {
 
   OptionsCard({super.key, required this.options, required this.questionId});
 
-  QuizQuestionsController questionsController = Get.find<QuizQuestionsController>();
+  final QuizQuestionsController questionsController = Get.find<QuizQuestionsController>();
 
   @override
   Widget build(BuildContext context) {

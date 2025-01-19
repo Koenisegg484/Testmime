@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:testmime/screens/main_screen.dart';
-
-import '../controllers/starting_controller.dart';
 import '../services/hive_service.dart';
 
 class WelcomeScreen extends StatelessWidget {
   WelcomeScreen({super.key});
 
-  SavedName savedName = SavedName();
+  final SavedName savedName = SavedName();
   final TextEditingController _nameController = TextEditingController();
 
 

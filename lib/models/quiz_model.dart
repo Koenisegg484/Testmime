@@ -115,7 +115,6 @@ class Quiz {
   }
 
   List<Question> getQuestions() {
-    print(questionsCount);
     return questions;
   }
 }

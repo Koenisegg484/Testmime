@@ -6,7 +6,7 @@ import 'package:testmime/screens/main_screen.dart';
 import '../constants/size_config.dart';
 
 class ScoreScreen extends StatefulWidget {
-  ScoreScreen({super.key});
+  const ScoreScreen({super.key});
 
   @override
   _ScoreScreenState createState() => _ScoreScreenState();
@@ -72,7 +72,7 @@ class _ScoreScreenState extends State<ScoreScreen> with SingleTickerProviderStat
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     spreadRadius: 2,
                     blurRadius: 5,
                     offset: Offset(0, 3),
@@ -113,6 +113,7 @@ class _ScoreScreenState extends State<ScoreScreen> with SingleTickerProviderStat
                       ),
                     ],
                   ),
+                  Text("Congratulations!!! You've completed this quiz.")
                 ],
               ),
             ),

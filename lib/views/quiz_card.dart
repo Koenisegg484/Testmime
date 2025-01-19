@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:testmime/constants/size_config.dart';
 
@@ -19,73 +21,66 @@ class QuizCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shadowColor: Colors.blueAccent,
       elevation: 5,
-      child: Container(
-        padding: EdgeInsets.all(SizeConfig.screenHeight * 0.01),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                  color: Color(0xffea9090),
-                  fontWeight: FontWeight.w600,
-                  fontSize: 24),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: Container(
+            color: Colors.white.withValues(alpha: 0.7),
+            padding: EdgeInsets.all(SizeConfig.screenHeight * 0.01),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Title", style: TextStyle(fontSize: 10),),
+                Text(title,
+                  style: TextStyle(color: Color(0xff000000), fontWeight: FontWeight.w600, fontSize: 24),
+                ),
+                if (description.isNotEmpty) Column(
+                  children: [
+                    SizedBox(
+                      height: SizeConfig.screenHeight * 0.005,
+                    ),
+                    Text("Description", style: TextStyle(fontSize: 10),),
+                    Text(description,
+                      style: TextStyle(color: Color(0xff000000), fontWeight: FontWeight.w600, fontSize: 24),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: SizeConfig.screenHeight * 0.005,
+                ),
+                Text("Topic", style: TextStyle(fontSize: 10),),
+                Text(topic, style: TextStyle(color: Color(0xff4177ff), fontWeight: FontWeight.w500, fontSize: 15),),
+                SizedBox(
+                  height: SizeConfig.screenHeight * 0.005,
+                ),
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Duration", style: TextStyle(fontSize: 10),),
+                        Text("$duration minutes", style: TextStyle(color: Color(0xff4177ff), fontWeight: FontWeight.w500, fontSize: 15),),
+                      ],
+                    ),
+                    Spacer(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Total questions", style: TextStyle(fontSize: 10),),
+                        Text(questionCount.toString(), style: TextStyle(color: Color(0xff4177ff), fontWeight: FontWeight.w500, fontSize: 15),),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
-            SizedBox(
-              height: SizeConfig.screenHeight * 0.005,
-            ),
-            if (description.isNotEmpty) Text(description),
-            SizedBox(
-              height: SizeConfig.screenHeight * 0.005,
-            ),
-            Text(topic),
-            SizedBox(
-              height: SizeConfig.screenHeight * 0.005,
-            ),
-            Text("Duration: $duration minutes"),
-            SizedBox(
-              height: SizeConfig.screenHeight * 0.005,
-            ),
-            Text("Total questions: $questionCount"),
-          ],
+          ),
         ),
       ),
     );
   }
 }
-
-// "id": 60,
-// "name": null,
-// "title": "Genetics and Evolution",
-// "description": "",
-// "difficulty_level": null,
-// "topic": "The Molecular Basis of Inheritance",
-// "time": "2024-07-15T00:00:00.000+05:30",
-// "is_published": true,
-// "created_at": "2024-07-15T17:42:08.623+05:30",
-// "updated_at": "2024-09-23T18:43:29.210+05:30",
-// "duration": 15,
-// "end_time": "2024-07-16T00:00:00.000+05:30",
-// "negative_marks": "1.0",
-// "correct_answer_marks": "4.0",
-// "shuffle": true,
-// "show_answers": true,
-// "lock_solutions": false,
-// "is_form": false,
-// "show_mastery_option": false,
-// "reading_material": null,
-// "quiz_type": null,
-// "is_custom": false,
-// "banner_id": null,
-// "exam_id": null,
-// "show_unanswered": false,
-// "ends_at": "2025-01-18",
-// "lives": null,
-// "live_count": "Free Test",
-// "coin_count": -1,
-// "questions_count": 10,
-// "daily_date": "January 17, 2025",
-// "max_mistake_count": 9,
-// "reading_materials": [],

@@ -5,9 +5,9 @@ class QuizPageAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
   final int questionCount;
   final int initialTime;
-  int answeredQuestions = 0;
+  final int answeredQuestions = 0;
 
-  QuizPageAppBar({
+  const QuizPageAppBar({
     super.key,
     required this.title,
     required this.questionCount,

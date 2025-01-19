@@ -2,6 +2,14 @@
 class Assets {
   Assets._();
 
+  static const String illustrationsAbs = 'assets/illustrations/abs.png';
+  static const String illustrationsCir = 'assets/illustrations/cir.png';
+  static const String illustrationsCubl = 'assets/illustrations/cubl.webp';
+  static const String illustrationsDim = 'assets/illustrations/dim.png';
+  static const String illustrationsPl = 'assets/illustrations/pl.png';
+  static const String illustrationsQuz = 'assets/illustrations/quz.png';
+  static const String illustrationsSpr = 'assets/illustrations/spr.png';
+  static const String illustrationsUsr = 'assets/illustrations/usr.png';
   static const String logoLogo = 'assets/logo/logo.png';
 
 }

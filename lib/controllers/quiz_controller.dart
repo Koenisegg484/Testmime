@@ -2,11 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../models/options_model.dart';
 import '../models/questions_model.dart';
 import '../models/quiz_model.dart';
-
 class QuizController extends GetxController {
   // State variables
   RxList<Quiz> quizzes = <Quiz>[].obs;
@@ -16,7 +13,7 @@ class QuizController extends GetxController {
   RxMap<int, int> selectedOptionIds = <int, int>{}.obs;
 
   // Data placeholders
-  late List<Question> _questions;
+  List<Question> _questions = [];
   final PageController pageController = PageController();
 
   @override
@@ -27,7 +24,6 @@ class QuizController extends GetxController {
     currentQuestionIndex.value = 0;
     selectedOptionIds.value = {};
     fetchQuizzes();
-    fetchQuestions();
   }
 
   // Fetch quizzes
@@ -39,6 +35,9 @@ class QuizController extends GetxController {
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
         quizzes.value = [Quiz.fromJson(data)];
+
+        // Fetch questions only after quizzes are fetched successfully
+        fetchQuestions();
       } else {
         hasError(true);
       }
@@ -50,8 +49,12 @@ class QuizController extends GetxController {
   }
 
   // Fetch questions
-  void fetchQuestions(){
-    _questions = quizzes[0].getQuestions().cast<Question>();
+  void fetchQuestions() {
+    if (quizzes.isNotEmpty) {
+      _questions = quizzes[0].getQuestions().cast<Question>();
+    } else {
+      _questions = []; // Default empty list
+    }
   }
 
   // Get questions
@@ -59,7 +62,7 @@ class QuizController extends GetxController {
     return _questions;
   }
 
-  int getDuration(){
-    return quizzes[0].duration;
+  int getDuration() {
+    return quizzes.isNotEmpty ? quizzes[0].duration : 0;
   }
 }

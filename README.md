@@ -7,13 +7,13 @@ Testmime is a quiz application that allows users to take quizzes, track scores, 
 Below are some screenshots from the app:
 ### Screenshots
 
-![Screenshot_20250119_232257](./Screenshots/Screenshot1.png){: width="350px"}
-![Screenshot_20250119_232339](./Screenshots/Screenshot2.png){: width="350px"}
-![Screenshot_20250119_232414](./Screenshots/Screenshot3.png){: width="350px"}
-![Screenshot_20250119_232428](./Screenshots/Screenshot4.png){: width="350px"}
-![Screenshot_20250119_232449](./Screenshots/Screenshot5.png){: width="350px"}
-![Screenshot_20250119_232520](./Screenshots/Screenshot6.png){: width="350px"}
-![Screenshot_20250119_232604](./Screenshots/Screenshot7.png){: width="350px"}
+<img src="./Screenshots/Screenshot1.png" alt="Screenshot_20250119_232257" width="350"/>
+<img src="./Screenshots/Screenshot2.png" alt="Screenshot_20250119_232339" width="350"/>
+<img src="./Screenshots/Screenshot3.png" alt="Screenshot_20250119_232414" width="350"/>
+<img src="./Screenshots/Screenshot4.png" alt="Screenshot_20250119_232428" width="350"/>
+<img src="./Screenshots/Screenshot5.png" alt="Screenshot_20250119_232449" width="350"/>
+<img src="./Screenshots/Screenshot6.png" alt="Screenshot_20250119_232520" width="350"/>
+<img src="./Screenshots/Screenshot7.png" alt="Screenshot_20250119_232604" width="350"/>
 
 
 (*Replace the placeholder URLs with actual image URLs in your repository or local directory*)

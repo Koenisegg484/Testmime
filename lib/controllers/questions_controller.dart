@@ -52,7 +52,6 @@ class QuizQuestionsController extends GetxController {
       }
     });
   }
-
   void showDialogOnTimerEnd() {
     Get.dialog(
       AlertDialog(
@@ -62,7 +61,10 @@ class QuizQuestionsController extends GetxController {
           TextButton(
             onPressed: () {
               _timer?.cancel();
-              Get.off(ScoreScreen());
+
+              Future.delayed(Duration.zero, () {
+                Get.off(ScoreScreen());
+              });
             },
             child: Text('Get Your Score'),
           ),
@@ -71,6 +73,7 @@ class QuizQuestionsController extends GetxController {
       barrierDismissible: false,
     );
   }
+
 
   void cancelTimer(){
     _timer?.cancel();

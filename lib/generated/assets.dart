@@ -2,10 +2,13 @@
 class Assets {
   Assets._();
 
+  static const String assetsIllustrationsAnim = 'assets/illustrations/anim.lottie';
   static const String illustrationsAbs = 'assets/illustrations/abs.png';
+  static const String illustrationsAnim = 'assets/illustrations/anim.json';
   static const String illustrationsCir = 'assets/illustrations/cir.png';
   static const String illustrationsCubl = 'assets/illustrations/cubl.webp';
   static const String illustrationsDim = 'assets/illustrations/dim.png';
+  static const String illustrationsHds = 'assets/illustrations/hds.png';
   static const String illustrationsPl = 'assets/illustrations/pl.png';
   static const String illustrationsQuz = 'assets/illustrations/quz.png';
   static const String illustrationsSpr = 'assets/illustrations/spr.png';
